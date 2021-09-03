@@ -6,6 +6,10 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class LoginActivity extends AppCompatActivity {
     // Username input id: username_input
     // Password input id: password_input
@@ -13,22 +17,40 @@ public class LoginActivity extends AppCompatActivity {
     // Simple logic, check username against database, if found check password against database. Send
     // to MainActivity if check successful. Display error otherwise.
 
-    EditText usernameEdit;
-    EditText passwordEdit;
+    EditText username_edit;
+    EditText password_edit;
+
+    List<String> username_list = new ArrayList<String>(Arrays.asList("cturetzky@csumb.edu"));
+    List<String> password_list = new ArrayList<String>(Arrays.asList("testPass"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        usernameEdit = (EditText)findViewById(R.id.username_input);
-        passwordEdit = (EditText)findViewById(R.id.password_input);
+        username_edit = (EditText)findViewById(R.id.username_input);
+        password_edit = (EditText)findViewById(R.id.password_input);
     }
 
     public void checkLogin(View view){
-        String username = usernameEdit.getText().toString();
-        String password = passwordEdit.getText().toString();
+        String username = username_edit.getText().toString();
+        String password = password_edit.getText().toString();
 
-        System.out.println("Username: " + username + "\nPassword: " + password);
+        int user_id = username_list.indexOf(username);
+        if(user_id == -1){ // indexOf returns -1 if username is not found
+            // Display error message
+            System.out.println("Username " + username + " not found.");
+            return;
+        }
+
+        String correct_pass = password_list.get(user_id);
+        if(correct_pass.equals(password)){ // Get the correct password and check against input pass
+            // Launch MainActivity
+            System.out.println("Login successful");
+            return;
+        }
+
+        System.out.println("Incorrect password");
+        return;
     }
 }
