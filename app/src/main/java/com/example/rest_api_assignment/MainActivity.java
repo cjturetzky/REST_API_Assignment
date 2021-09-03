@@ -49,11 +49,15 @@ public class MainActivity extends AppCompatActivity {
                 List<Post> posts = response.body();
 
                 for(Post post: posts){
+                    if(post.getUserId() != user_id){
+                        continue;
+                    }
                     String content = "";
-                    content += "ID: " + post.getId() +
+                    content += "\nID: " + post.getId() +
                             "\nUserId: " + post.getUserId() +
                             "\nTitle: " + post.getTitle() +
-                            "\nBody: " + post.getBody();
+                            "\nBody: " + post.getBody() +
+                            "\n";
 
                     textViewResult.append(content);
                 }
