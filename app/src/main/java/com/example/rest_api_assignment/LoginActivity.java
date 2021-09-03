@@ -1,5 +1,6 @@
 package com.example.rest_api_assignment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -46,7 +47,10 @@ public class LoginActivity extends AppCompatActivity {
         String correct_pass = password_list.get(user_id);
         if(correct_pass.equals(password)){ // Get the correct password and check against input pass
             // Launch MainActivity
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("userid", user_id+1);
             System.out.println("Login successful");
+            startActivity(intent);
             return;
         }
 

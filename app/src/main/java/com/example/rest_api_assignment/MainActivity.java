@@ -2,6 +2,7 @@ package com.example.rest_api_assignment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -21,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+       Intent intent = getIntent();
+       int user_id = intent.getIntExtra("userid", 0);
+       System.out.println("Main activity user ID: " + user_id);
 
         textViewResult = findViewById(R.id.text_view_result);
 
