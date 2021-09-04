@@ -40,16 +40,24 @@ public class LoginActivity extends AppCompatActivity {
         String password = password_edit.getText().toString();
 
         int user_id = checkUsername(username);
+        if(user_id == -1){
+            username_edit.setError("Invalid username");
+            return;
+        }
         if(checkPassword(user_id, password)){ // If valid login, launch MainActivity
             Intent intent = createIntent(this, user_id, username);
             startActivity(intent);
         }
+        else {
+            password_edit.setError("Invalid password");
+        }
+        return;
 
     }
 
     public static Intent createIntent(Context context, int user_id, String username){
         Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra("userid", user_id+1);
+        intent.putExtra("userid", user_id);
         intent.putExtra("username", username);
         return intent;
     }
