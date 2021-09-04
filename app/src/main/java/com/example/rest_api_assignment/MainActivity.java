@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
        Intent intent = getIntent();
        int user_id = intent.getIntExtra("userid", 0);
-       System.out.println("Main activity user ID: " + user_id);
+       String username = intent.getStringExtra("username");
 
         textViewResult = findViewById(R.id.text_view_result);
 
@@ -47,12 +47,13 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 List<Post> posts = response.body();
+                textViewResult.append("Welcome, " + username + "\nUser ID: " + user_id);
 
                 for(Post post: posts){
                     if(post.getUserId() != user_id){
                         continue;
                     }
-                    String content = "";
+                    String content = "\n";
                     content += "\nID: " + post.getId() +
                             "\nUserId: " + post.getUserId() +
                             "\nTitle: " + post.getTitle() +
