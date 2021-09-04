@@ -41,20 +41,18 @@ public class LoginActivity extends AppCompatActivity {
 
         int user_id = checkUsername(username);
         if(checkPassword(user_id, password)){ // If valid login, launch MainActivity
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("userid", user_id+1);
-            intent.putExtra("username", username);
+            Intent intent = createIntent(this, user_id, username);
             startActivity(intent);
         }
 
     }
 
-//    public static Intent createIntent(Context context, int user_id, String username){
-//        Intent intent = new Intent(context, MainActivity.class);
-//        intent.putExtra("userid", user_id+1);
-//        intent.putExtra("username", username);
-//        return intent;
-//    }
+    public static Intent createIntent(Context context, int user_id, String username){
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("userid", user_id+1);
+        intent.putExtra("username", username);
+        return intent;
+    }
 
     public static int checkUsername(String username){
         int user_id = username_list.indexOf(username);
