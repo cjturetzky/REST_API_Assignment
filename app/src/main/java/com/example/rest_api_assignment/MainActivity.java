@@ -2,6 +2,7 @@ package com.example.rest_api_assignment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -21,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+       Intent intent = getIntent();
+       int user_id = intent.getIntExtra("userid", 0);
+       String username = intent.getStringExtra("username");
 
         textViewResult = findViewById(R.id.text_view_result);
 
@@ -42,13 +47,18 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 List<Post> posts = response.body();
+                textViewResult.append("Welcome, " + username + "\nUser ID: " + user_id);
 
                 for(Post post: posts){
-                    String content = "";
-                    content += "ID: " + post.getId() +
+                    if(post.getUserId() != user_id){
+                        continue;
+                    }
+                    String content = "\n";
+                    content += "\nID: " + post.getId() +
                             "\nUserId: " + post.getUserId() +
                             "\nTitle: " + post.getTitle() +
-                            "\nBody: " + post.getBody();
+                            "\nBody: " + post.getBody() +
+                            "\n";
 
                     textViewResult.append(content);
                 }
